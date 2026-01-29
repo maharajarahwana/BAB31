@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>BAB31</title>
+    
+
+  </head>
+    
+  <body>
+  <!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>BAB1</title>
+    
+
+  </head>
+    
+  <body>
+  <!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Latihan Kosakata</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+  .card {
+    background: white;
+    padding: 30px;
+    width: 400px;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  }
+  input {
+    width: 90%;
+    padding: 8px;
+    margin-top: 15px;
+  }
+  button {
+    margin-top: 20px;
+    padding: 8px 15px;
+    cursor: pointer;
+  }
+  .result {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  .wrong { color: red; }
+  .correct { color: green; }
+  ol { text-align:left; max-height:400px; overflow:auto; }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <h2 id="question"></h2>
+  <input type="text" id="answerInput" placeholder="Tulis jawaban di sini">
+  <br>
+  <button id="nextBtn">Selanjutnya</button>
+</div>
+
+<script>
+let questions = [
+  { soal: "복장", jawaban: "pakaian kerja" },
+  { soal: "작업복", jawaban: "baju kerja" },
+  { soal: "정장", jawaban: "pakaian formal" },
+  { soal: "양복", jawaban: "setelan jas" },
+  { soal: "갈아입다", jawaban: "berganti pakaian" },
+  { soal: "벗다", jawaban: "melepas" },
+  { soal: "단정하다", jawaban: "rapi, sopan" },
+  { soal: "단추를 잠그다", jawaban: "mengancingkan" },
+  { soal: "단추를 풀다", jawaban: "membuka kancing" },
+  { soal: "지퍼를 올리다", jawaban: "menaikkan resleting" },
+  { soal: "지퍼를 내리다", jawaban: "menurunkan resleting" },
+  { soal: "넥타이를 매다", jawaban: "memakai, mengikat dasi" },
+  { soal: "넥타이를 풀다", jawaban: "melepas dasi" },
+  { soal: "옷을 맞추다", jawaban: "menjahit, memesan baju" },
+  { soal: "성실하다", jawaban: "rajin, sungguh-sungguh" },
+  { soal: "근무 태도", jawaban: "sikap kerja" },
+  { soal: "긍정적이다", jawaban: "positif" },
+  { soal: "부정적이다", jawaban: "negatif" },
+  { soal: "-아/어 보이다", jawaban: "terlihat, tampak" },
+  { soal: "-게", jawaban: "dengan (akhiran keterangan)" },
+  { soal: "함부로 하다", jawaban: "bertindak sembarangan" },
+  { soal: "피해를 주다", jawaban: "merugikan" },
+  { soal: "무시하다", jawaban: "mengabaikan, meremehkan" },
+  { soal: "불쾌하다", jawaban: "tidak menyenangkan, tersinggung" },
+  { soal: "익숙해지다", jawaban: "menjadi terbiasa" },
+  { soal: "서로", jawaban: "saling" },
+  { soal: "다행이다", jawaban: "beruntung, syukurlah" },
+  { soal: "의견", jawaban: "pendapat" },
+  { soal: "사용하다", jawaban: "menggunakan" },
+  { soal: "항상", jawaban: "selalu" },
+  { soal: "앞으로", jawaban: "ke depan, selanjutnya" },
+  { soal: "공장", jawaban: "pabrik" },
+  { soal: "공장장", jawaban: "kepala pabrik" },
+  { soal: "직책", jawaban: "jabatan" },
+  { soal: "호칭", jawaban: "panggilan" },
+  { soal: "윗사람", jawaban: "atasan" },
+  { soal: "부장님", jawaban: "kepala departemen" },
+  { soal: "팀장님", jawaban: "kepala tim" },
+  { soal: "반장님", jawaban: "mandor" },
+  { soal: "관장님", jawaban: "kepala institusi, direktur" },
+  { soal: "작업하다", jawaban: "bekerja" },
+  { soal: "안전하다", jawaban: "aman" },
+  { soal: "구별하다", jawaban: "membedakan" },
+  { soal: "책을 넣다", jawaban: "memasukkan buku" },
+  { soal: "밥을 먹는데", jawaban: "makan" },
+  { soal: "밥이 맛있게", jawaban: "nasinya enak" },
+  { soal: "붙이다", jawaban: "menempelkan" },
+  { soal: "예의가 없다", jawaban: "tidak sopan" },
+  { soal: "반말을 하다", jawaban: "berbicara informal" },
+  { soal: "존댓말을 하다", jawaban: "berbicara formal" },
+  { soal: "칭찬하다", jawaban: "memuji" },
+  { soal: "존중하다", jawaban: "menghormati" },
+  { soal: "배려하다", jawaban: "menghargai, memperhatikan" },
+  { soal: "친근함", jawaban: "keakraban" },
+  { soal: "만일", jawaban: "jika, seandainya" },
+  { soal: "비슷하다", jawaban: "mirip" },
+  { soal: "후배", jawaban: "junior" },
+  { soal: "대신", jawaban: "sebagai ganti" },
+  { soal: "올바르다", jawaban: "benar, tepat" },
+  { soal: "바람직하다", jawaban: "baik, sebaiknya" }
+];
+
+// Acak soal
+questions = questions.sort(() => Math.random() - 0.5);
+
+let index = 0;
+let score = 0;
+let userAnswers = [];
+
+const questionEl = document.getElementById("question");
+const answerInput = document.getElementById("answerInput");
+const nextBtn = document.getElementById("nextBtn");
+const card = document.querySelector(".card");
+
+function showQuestion() {
+  questionEl.textContent = "Soal " + (index + 1) + ": " + questions[index].soal;
+  answerInput.value = "";
+  answerInput.focus();
+}
+
+nextBtn.addEventListener("click", () => {
+  const userAnswer = answerInput.value.trim().toLowerCase();
+  userAnswers[index] = userAnswer; // simpan jawaban sesuai index
+
+  if (userAnswer === questions[index].jawaban) {
+    score++;
+  }
+
+  index++;
+  if (index < questions.length) {
+    showQuestion();
+  } else {
+    showResult();
+  }
+});
+
+function showResult() {
+  let answerList = "";
+  questions.forEach((q, i) => {
+    if (userAnswers[i] === q.jawaban) {
+      answerList += `<li>${q.soal} = <span class="correct">${q.jawaban}</span></li>`;
+    } else {
+      answerList += `<li>${q.soal} = <span class="correct">${q.jawaban}</span><br>
+                     Jawaban kamu: <span class="wrong">${userAnswers[i] || "(kosong)"}</span></li>`;
+    }
+  });
+
+  card.innerHTML = `
+    <h2>Hasil</h2>
+    <p class="result">Nilai: ${score} / ${questions.length}</p>
+    <hr>
+    <p>Kunci Jawaban:</p>
+    <ol>${answerList}</ol>
+  `;
+}
+
+showQuestion();
+</script>
+
+</body>
+</html>
+    
+  </body>
+  
+</html>
